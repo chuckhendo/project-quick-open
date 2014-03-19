@@ -1,10 +1,10 @@
 {
-  "name": "project-manager",
-  "main": "./lib/project-manager",
-  "version": "0.1.0",
+  "name": "project-quick-open",
+  "main": "./lib/project-quick-open",
+  "version": "0.0.0",
   "description": "A quick view of all projects inside your 'project home' in Atom",
-  "activationEvents": ["project-manager:toggle"],
-  "repository": "https://github.com/atom/project-manager",
+  "activationEvents": ["project-quick-open:toggle"],
+  "repository": "https://github.com/chuckhendo/project-quick-open",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
