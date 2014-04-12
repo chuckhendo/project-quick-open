@@ -3,7 +3,7 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'Project Manager'
+      'label': 'Project Quick Open'
       'submenu': [
         { 'label': 'Open Project...', 'command': 'project-quick-open:toggle' }
       ]
