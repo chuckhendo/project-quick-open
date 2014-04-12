@@ -5,5 +5,7 @@ After configuring a "Project Home" inside of Atom Preferences, pressing CTRL+ALT
 ![Demo Gif](http://i.imgur.com/qqfsKtF.gif "Demo Gif")
 
 ### Changelog
-v0.1.1 - Added demo gif to readme (Thanks @shanehowell!)
-v0.1.0 - First version. Basic functionality implemented
+- v0.2.1 - updated readme
+- v0.2.0 - Added option to open project in current window
+- v0.1.1 - Added demo gif to readme (Thanks @shanehowell!)
+- v0.1.0 - First version. Basic functionality implemented
