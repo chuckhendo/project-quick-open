@@ -1,8 +1,8 @@
 ProjectQuickOpenView = require './project-quick-open-view'
 
 module.exports =
-  # configDefaults:
-  #   ProjectPath: process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE
+  configDefaults:
+    openProjectsInSameWindow: false
   activate: (state) ->
     @ProjectQuickOpenView = new ProjectQuickOpenView()
   deactivate: ->

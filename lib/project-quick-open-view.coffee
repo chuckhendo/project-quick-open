@@ -13,7 +13,21 @@ class ProjectQuickOpenView extends SelectListView
     "<li>#{item}</li>"
 
   confirmed: (item) ->
-    atom.open({ pathsToOpen: [atom.config.settings.core.projectHome + '/' + item] })
+    newPath = atom.config.settings.core.projectHome + '/' + item
+    if atom.config.get('project-quick-open.openProjectsInSameWindow')
+      # Open in same window
+
+      # close tabs in current workspace
+      panes = atom.workspace.getPanes()
+      for pane in panes
+        do (pane) ->
+          pane.destroyItems()
+
+      # change project path
+      atom.project.setPath(newPath)
+    else
+      # open in new window
+      atom.open({ pathsToOpen: [newPath] })
     @cancel()
 
   getFiles: () ->
