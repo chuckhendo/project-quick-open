@@ -44,3 +44,6 @@ class ProjectQuickOpenView extends SelectListView
       @getFiles()
       atom.workspaceView.append(this)
       @focusFilterEditor()
+  
+  destroy: ->
+    @detach()
