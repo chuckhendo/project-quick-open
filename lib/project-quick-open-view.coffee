@@ -33,7 +33,7 @@ class ProjectQuickOpenView extends SelectListView
   getProjectPath: (cb) ->
     # determine project home
     projectPath = '~'
-    if atom.config.get('project-quick-open.projectPaths')
+    if atom.config.get('project-quick-open.projectPaths') && atom.config.get('project-quick-open.projectPaths') != '~'
       projectPath = atom.config.get('project-quick-open.projectPaths')
     else if atom.config.settings.core.projectHome
       projectPath = atom.config.settings.core.projectHome
@@ -47,9 +47,15 @@ class ProjectQuickOpenView extends SelectListView
   getFiles: () ->
     projectPath = @projectHome
     fs.readdir projectPath, (err, files) =>
-      folders = (file for file in files when file[0] != '.' && fs.statSync(projectPath + file).isDirectory())
-      @setItems(folders)
-      @populateList()
+      if err
+        if err.code == 'ENOENT'
+          alert 'ENOENT error. Are your sure your project folder exists?'
+        else
+          alert err.message
+      else
+        folders = (file for file in files when file[0] != '.' && fs.statSync(projectPath + file).isDirectory())
+        @setItems(folders)
+        @populateList()
 
   toggle: ->
     if @hasParent()
