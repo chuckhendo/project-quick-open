@@ -1,6 +1,6 @@
 {SelectListView} = require 'atom'
-# Directory = require 'directory'
 fs = require 'fs'
+tilde = require 'tilde-expansion'
 
 module.exports =
 class ProjectQuickOpenView extends SelectListView
@@ -13,7 +13,7 @@ class ProjectQuickOpenView extends SelectListView
     "<li>#{item}</li>"
 
   confirmed: (item) ->
-    newPath = atom.config.settings.core.projectHome + '/' + item
+    newPath = @projectHome + item
     if atom.config.get('project-quick-open.openProjectsInSameWindow')
       # Open in same window
 
@@ -30,8 +30,22 @@ class ProjectQuickOpenView extends SelectListView
       atom.open({ pathsToOpen: [newPath] })
     @cancel()
 
+  getProjectPath: (cb) ->
+    # determine project home
+    projectPath = '~'
+    if atom.config.get('project-quick-open.projectPaths')
+      projectPath = atom.config.get('project-quick-open.projectPaths')
+    else if atom.config.settings.core.projectHome
+      projectPath = atom.config.settings.core.projectHome
+
+    projectPath = if projectPath.slice(-1) != '/' then projectPath + '/' else projectPath
+
+    tilde projectPath, (pp) =>
+      @projectHome = pp
+      cb()
+
   getFiles: () ->
-    projectPath = atom.config.settings.core.projectHome + "/"
+    projectPath = @projectHome
     fs.readdir projectPath, (err, files) =>
       folders = (file for file in files when file[0] != '.' && fs.statSync(projectPath + file).isDirectory())
       @setItems(folders)
@@ -41,6 +55,7 @@ class ProjectQuickOpenView extends SelectListView
     if @hasParent()
       @cancel()
     else
-      @getFiles()
-      atom.workspaceView.append(this)
-      @focusFilterEditor()
+      @getProjectPath =>
+        @getFiles()
+        atom.workspaceView.append(this)
+        @focusFilterEditor()
