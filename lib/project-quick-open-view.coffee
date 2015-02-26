@@ -35,8 +35,8 @@ class ProjectQuickOpenView extends SelectListView
     projectPath = '~'
     if atom.config.get('project-quick-open.projectPaths') && atom.config.get('project-quick-open.projectPaths') != '~'
       projectPath = atom.config.get('project-quick-open.projectPaths')
-    else if atom.config.settings.core.projectHome
-      projectPath = atom.config.settings.core.projectHome
+    else if atom.config.getSettings().core.projectHome
+      projectPath = atom.config.getSettings().core.projectHome
 
     projectPath = if projectPath.slice(-1) != '/' then projectPath + '/' else projectPath
 
