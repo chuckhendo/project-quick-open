@@ -27,7 +27,10 @@ class ProjectQuickOpenView extends SelectListView
       atom.project.setPath(newPath)
     else
       # open in new window
-      atom.open({ pathsToOpen: [newPath] })
+      atom.open(
+        pathsToOpen: [newPath],
+        newWindow: true
+      )
     @cancel()
 
   getProjectPath: (cb) ->
