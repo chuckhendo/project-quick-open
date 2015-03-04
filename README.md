@@ -5,6 +5,9 @@ After configuring a "Project Home" inside of Atom Preferences, pressing CTRL+ALT
 ![Demo Gif](http://i.imgur.com/qqfsKtF.gif "Demo Gif")
 
 ### Changelog
+- v0.3.3 - fix for open in new window to actually open a new window (Thanks @bsedat)
+- v0.3.2 - fix for updated API (Thanks @jsg2021)
+- v0.3.1 - updates to fix deprecation cop errors (Thanks @jdsimcoe)
 - v0.2.2 - now alerts for non-existing paths. Added project path setting for future extensibility
 - v0.2.1 - updated readme
 - v0.2.0 - Added option to open project in current window
