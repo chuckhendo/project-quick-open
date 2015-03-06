@@ -3,15 +3,16 @@
   "main": "./lib/project-quick-open",
   "version": "0.3.3",
   "description": "A quick view of all projects inside your 'project home' in Atom",
-  "activationEvents": [
-    "project-quick-open:toggle"
-  ],
+  "activationCommands": {
+    "atom-workspace": "project-quick-open:toggle"
+  },
   "repository": "https://github.com/chuckhendo/project-quick-open",
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">=0.174.0 <2.0.0"
   },
   "dependencies": {
-    "tilde-expansion": "0.0.0"
+    "tilde-expansion": "0.0.0",
+    "atom-space-pen-views": "^2.0.3"
   }
 }

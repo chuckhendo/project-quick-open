@@ -1,4 +1,5 @@
 ProjectQuickOpenView = require './project-quick-open-view'
+{CompositeDisposable} = require 'atom'
 
 module.exports =
   configDefaults:
@@ -6,6 +7,7 @@ module.exports =
     projectPaths: '~'
   activate: (state) ->
     @ProjectQuickOpenView = new ProjectQuickOpenView()
+
   deactivate: ->
     @ProjectQuickOpenView.destroy()
 
