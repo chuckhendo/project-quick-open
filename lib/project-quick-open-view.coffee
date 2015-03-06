@@ -1,6 +1,7 @@
 {View, SelectListView} = require 'atom-space-pen-views'
 fs = require 'fs'
-tilde = require 'tilde-expansion'
+path = require 'path'
+tilde = require 'expand-tilde'
 
 module.exports =
 class ProjectQuickOpenView extends SelectListView
@@ -37,7 +38,7 @@ class ProjectQuickOpenView extends SelectListView
     cancelled: ->
         @hide()
 
-    getProjectPath: (cb) ->
+    getProjectPath: ->
         # determine project home
         projectPath = '~'
         if atom.config.get('project-quick-open.projectPaths') && atom.config.get('project-quick-open.projectPaths') != '~'
@@ -45,11 +46,7 @@ class ProjectQuickOpenView extends SelectListView
         else if atom.config.settings.core.projectHome
             projectPath = atom.config.settings.core.projectHome
 
-        projectPath = if projectPath.slice(-1) != '/' then projectPath + '/' else projectPath
-
-        tilde projectPath, (pp) =>
-            @projectHome = pp
-            cb()
+        @projectHome = path.join(tilde(projectPath), '/')
 
     getFiles: () ->
         projectPath = @projectHome
@@ -65,14 +62,14 @@ class ProjectQuickOpenView extends SelectListView
                 @populateList()
 
     show: ->
-        @getProjectPath =>
-            @getFiles()
+        @getProjectPath()
+        @getFiles()
 
-            @panel ?= atom.workspace.addModalPanel(item: this)
-            @panel.show()
-            @storeFocusedElement()
+        @panel ?= atom.workspace.addModalPanel(item: this)
+        @panel.show()
+        @storeFocusedElement()
 
-            @focusFilterEditor()
+        @focusFilterEditor()
 
     hide: ->
         @panel?.hide()
