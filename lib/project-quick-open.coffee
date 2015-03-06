@@ -2,9 +2,13 @@ ProjectQuickOpenView = require './project-quick-open-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports =
-  configDefaults:
-    openProjectsInSameWindow: false
-    projectPaths: '~'
+  config:
+    openProjectsInSameWindow:
+      type: 'boolean'
+      default: false
+    projectPaths:
+      type: 'string'
+      default: '~'
   activate: (state) ->
     @ProjectQuickOpenView = new ProjectQuickOpenView()
 
