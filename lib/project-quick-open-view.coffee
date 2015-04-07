@@ -57,7 +57,7 @@ class ProjectQuickOpenView extends SelectListView
                 else
                     alert err.message
             else
-                folders = (file for file in files when file[0] != '.' && fs.statSync(projectPath + file).isDirectory())
+                folders = (file for file in files when file[0] != '.' && fs.existsSync(projectPath + file) && fs.statSync(projectPath + file).isDirectory())
                 @setItems(folders)
                 @populateList()
 
