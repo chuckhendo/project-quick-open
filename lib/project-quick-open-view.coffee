@@ -26,7 +26,7 @@ class ProjectQuickOpenView extends SelectListView
                     pane.destroyItems()
 
             # change project path
-            atom.project.setPath(newPath)
+            atom.project.setPaths([newPath])
         else
             # open in new window
             atom.open(
