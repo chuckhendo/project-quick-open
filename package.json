@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
-    "expand-tilde": "^1.2.0"
+    "expand-tilde": "^1.2.0",
+    "walkdir": "0.0.12"
   }
 }

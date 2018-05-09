@@ -9,6 +9,9 @@ module.exports =
     projectPaths:
       type: 'string'
       default: '~'
+    maxDepth:
+      type: 'integer'
+      default: 1
   activate: (state) ->
     @ProjectQuickOpenView = new ProjectQuickOpenView()
 
