@@ -1,6 +1,7 @@
 {View, SelectListView} = require 'atom-space-pen-views'
 fs = require 'fs'
 path = require 'path'
+walkdir = require 'walkdir'
 tilde = require 'expand-tilde'
 
 module.exports =
@@ -50,16 +51,22 @@ class ProjectQuickOpenView extends SelectListView
 
     getFiles: () ->
         projectPath = @projectHome
-        fs.readdir projectPath, (err, files) =>
-            if err
-                if err.code == 'ENOENT'
-                    alert 'ENOENT error. Are your sure your project folder exists?'
-                else
-                    alert err.message
+        emitter = walkdir projectPath, max_depth: atom.config.get('project-quick-open.maxDepth');
+        folders = [];
+
+        emitter.on 'directory', (folder) =>
+            folders.push(path.relative(projectPath, folder))
+
+        emitter.on 'error', (path, err) =>
+            if err.code == 'ENOENT'
+                alert 'ENOENT error. Are your sure your project folder exists?'
             else
-                folders = (file for file in files when file[0] != '.' && fs.existsSync(projectPath + file) && fs.statSync(projectPath + file).isDirectory())
-                @setItems(folders)
-                @populateList()
+                alert err.message
+
+        emitter.on 'end', () =>
+            folders.sort()
+            @setItems(folders)
+            @populateList()
 
     show: ->
         @getProjectPath()
